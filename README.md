@@ -8,3 +8,8 @@ Server should run automatically when starting a workspace. To run manually, run:
 ```sh
 npm run dev
 ```
+# backend-TH
+Backend de ferreteria TH
+
+
+Scrip bd

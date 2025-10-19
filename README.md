@@ -12,4 +12,6 @@ npm run dev
 Backend de ferreteria TH
 
 
-Scrip bd
+Scrip bd.
+
+prueba

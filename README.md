@@ -14,4 +14,3 @@ Backend de ferreteria TH
 
 Scrip bd.
 
-prueba

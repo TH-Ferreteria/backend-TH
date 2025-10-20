@@ -1,13 +1,18 @@
-// index.js
-import path from 'path'; // Cambio
-import 'dotenv/config.js'; // Simplifica la carga del .env
-import express from 'express'; // Cambio
-import db from './config/db.js'; // Cambio (Nota: debe ser './config/db.js')
+// src/index.js
+import path from 'path'; 
+import 'dotenv/config.js'; 
+import express from 'express'; 
+import db from './config/db.js'; 
+
+import authRoutes from './routes/auth.js'; //  RUTAS DE AUTENTICACIÓN
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+//  Conecta las rutas de autenticación
+app.use('/api/auth', authRoutes);
 
 // Ruta de prueba para verificar la conexión a la DB
 app.get('/', async (req, res) => {

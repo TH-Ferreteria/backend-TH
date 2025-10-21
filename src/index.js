@@ -8,7 +8,11 @@ import authRoutes from './routes/auth.js'; //  RUTAS DE AUTENTICACIÓN
 
 import configRoutes from './routes/configRoutes.js'; //RUTA DE PRUEBA RUTA PROTEGIDA
 
+import clienteRoutes from './routes/clienteRoutes.js'; // RUTAS DE CLIENTES
+
+// Configuración de Express
 const app = express();
+
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -18,6 +22,9 @@ app.use('/api/auth', authRoutes);
 
 // RUTA DE CONFIGURACIÓN PROTEGIDA
 app.use('/api/config', configRoutes);
+
+// CONEXIÓN DE RUTAS DE CLIENTES
+app.use('/api/clientes', clienteRoutes); 
 
 // Ruta de prueba para verificar la conexión a la DB
 app.get('/', async (req, res) => {

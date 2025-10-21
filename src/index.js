@@ -10,6 +10,9 @@ import configRoutes from './routes/configRoutes.js'; //RUTA DE PRUEBA RUTA PROTE
 
 import clienteRoutes from './routes/clienteRoutes.js'; // RUTAS DE CLIENTES
 
+import { ensureConsumidorFinalExists } from './utils/initDB.js'; // Asegura que el Consumidor Final existe
+
+
 // Configuración de Express
 const app = express();
 
@@ -45,7 +48,22 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Servidor Express escuchando en http://localhost:${port}`);
-    console.log(`Usando JWT_SECRET: ${process.env.JWT_SECRET.substring(0, 10)}...`);
-});
+// Levantar el servidor y la inicialización de la DB
+const startServer = async () => {
+    try {
+        // 1. Ejecutar la inicialización antes de empezar a recibir peticiones
+        await ensureConsumidorFinalExists(); 
+
+        // 2. Levantar el servidor
+        app.listen(port, () => {
+            console.log(`Servidor Express escuchando en http://localhost:${port}`);
+            console.log(`Usando JWT_SECRET: ${process.env.JWT_SECRET.substring(0, 10)}...`);
+        });
+
+    } catch (error) {
+        console.error('FATAL ERROR: No se pudo iniciar la aplicación.', error.message);
+        process.exit(1); // Detener la aplicación si la inicialización falla
+    }
+}
+
+startServer(); // Llamar a la función de inicio

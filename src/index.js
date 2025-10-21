@@ -8,6 +8,8 @@ import authRoutes from './routes/auth.js'; //  RUTAS DE AUTENTICACIÓN
 
 import configRoutes from './routes/configRoutes.js'; //RUTA DE PRUEBA RUTA PROTEGIDA
 
+import productoRoutes from './routes/productoRoutes.js'; // RUTAS DE PRODUCTOS
+
 import clienteRoutes from './routes/clienteRoutes.js'; // RUTAS DE CLIENTES
 
 import { ensureConsumidorFinalExists } from './utils/initDB.js'; // Asegura que el Consumidor Final existe
@@ -25,6 +27,9 @@ app.use('/api/auth', authRoutes);
 
 // RUTA DE CONFIGURACIÓN PROTEGIDA
 app.use('/api/config', configRoutes);
+
+// CONEXIÓN DE RUTAS DE PRODUCTOS
+app.use('/api/productos', productoRoutes); 
 
 // CONEXIÓN DE RUTAS DE CLIENTES
 app.use('/api/clientes', clienteRoutes); 

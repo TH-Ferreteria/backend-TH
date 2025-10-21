@@ -6,6 +6,8 @@ import db from './config/db.js';
 
 import authRoutes from './routes/auth.js'; //  RUTAS DE AUTENTICACIÓN
 
+import configRoutes from './routes/configRoutes.js'; //RUTA DE PRUEBA RUTA PROTEGIDA
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -13,6 +15,9 @@ app.use(express.json());
 
 //  Conecta las rutas de autenticación
 app.use('/api/auth', authRoutes);
+
+// RUTA DE CONFIGURACIÓN PROTEGIDA
+app.use('/api/config', configRoutes);
 
 // Ruta de prueba para verificar la conexión a la DB
 app.get('/', async (req, res) => {

@@ -2,7 +2,35 @@
 import express from 'express';
 import { protect, restrictTo } from '../middleware/authMiddleware.js';
 
+import { 
+    getConfiguracionDTE, 
+    saveOrUpdateConfiguracionDTE 
+} from '../controllers/configController.js'; // Importar las nuevas funciones
+
 const router = express.Router();
+
+
+// ------------------------------------------------------------------
+// RUTAS DE CONFIGURACIÓN DTE (Necesitan ser ADMIN)
+// ------------------------------------------------------------------
+
+// [GET] /api/config/dte
+// Obtener la configuración actual. Solo usuarios autenticados.
+router.get(
+    '/dte', 
+    protect, 
+    getConfiguracionDTE
+);
+
+// [POST] /api/config/dte
+// Crear o actualizar la configuración DTE. Solo ADMIN.
+router.post(
+    '/dte', 
+    protect, 
+    restrictTo(['ADMIN']), // Solo un ADMIN puede tocar estos datos críticos
+    saveOrUpdateConfiguracionDTE
+);
+
 
 // ----------------------------------------------------
 // RUTA PROTEGIDA DE PRUEBA

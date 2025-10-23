@@ -1,6 +1,8 @@
 // src/controllers/configController.js
 import db from '../config/db.js';
 
+import { getMhAuthToken } from '../services/mhAuthService.js';
+
 /**
  * 1. Obtener la Configuración DTE (GET)
  * Solo debe haber una fila con toda la información.
@@ -91,5 +93,30 @@ export const saveOrUpdateConfiguracionDTE = async (req, res) => {
     } catch (error) {
         console.error('Error al guardar/actualizar la configuración DTE:', error);
         res.status(500).json({ message: 'Error interno del servidor al procesar la configuración.' });
+    }
+};
+
+/**
+* 3. PRUEBA: Obtener Token de Hacienda (GET)
+ * Ruta temporal para probar el servicio mhAuthService.js
+ */
+export const testMhAuth = async (req, res) => {
+    try {
+        const mhToken = await getMhAuthToken();
+
+        const tokenString = String(mhToken); 
+        
+        // 2. Solo mostramos el prefijo si la cadena es lo suficientemente larga.
+        const tokenPrefix = tokenString.length > 30 
+                            ? tokenString.substring(0, 30) + '...'
+                            : tokenString; 
+        
+        // 3. Devolvemos el prefijo.
+        res.status(200).json({
+            message: ' Autenticación con MH exitosa. Token obtenido y almacenado en caché.',
+            token_prefix: tokenPrefix,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };

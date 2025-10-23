@@ -4,11 +4,22 @@ import { protect, restrictTo } from '../middleware/authMiddleware.js';
 
 import { 
     getConfiguracionDTE, 
-    saveOrUpdateConfiguracionDTE 
+    saveOrUpdateConfiguracionDTE,
+    testMhAuth
 } from '../controllers/configController.js'; // Importar las nuevas funciones
 
 const router = express.Router();
 
+// ------------------------------------------------------------------
+// NUEVA RUTA DE PRUEBA DE AUTENTICACIÓN MH
+// ------------------------------------------------------------------
+// [GET] /api/config/mh-token-test
+router.get(
+    '/mh-token-test', 
+    protect, // Solo usuarios autenticados pueden probar esto
+    restrictTo(['ADMIN']), // Solo ADMIN puede probar esto
+    testMhAuth
+);
 
 // ------------------------------------------------------------------
 // RUTAS DE CONFIGURACIÓN DTE (Necesitan ser ADMIN)

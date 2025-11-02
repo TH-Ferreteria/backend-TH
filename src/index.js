@@ -14,6 +14,7 @@ import clienteRoutes from './routes/clienteRoutes.js'; // RUTAS DE CLIENTES
 
 import { ensureConsumidorFinalExists } from './utils/initDB.js'; // Asegura que el Consumidor Final existe
 
+import ventasRoutes from './routes/ventasRoutes.js';
 
 // Configuración de Express
 const app = express();
@@ -33,6 +34,9 @@ app.use('/api/productos', productoRoutes);
 
 // CONEXIÓN DE RUTAS DE CLIENTES
 app.use('/api/clientes', clienteRoutes); 
+
+// POST /api/ventas
+app.use('/api/ventas', ventasRoutes); 
 
 // Ruta de prueba para verificar la conexión a la DB
 app.get('/', async (req, res) => {
